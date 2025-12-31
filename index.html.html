@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escape Room Night | ليلة الهروب</title>
+    <style>
+        /* تصميم الواجهة */
+        body {
+            background-color: #0b0b0b;
+            color: #e0e0e0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+            border: 1px solid #333;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #ff4d4d;
+            letter-spacing: 2px;
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #cc0000;
+        }
+
+        #resultArea {
+            margin-top: 20px;
+            min-height: 150px;
+        }
+
+        .hint-text {
+            font-size: 1.1rem;
+            color: #ffcc00;
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-weight: bold;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(5px);
+            }
+
+            50% {
+                transform: translateX(-5px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>أدخل الرمز لفك الشيفرة:</h1>
+
+        <input type="text" id="codeInput" placeholder="---" autocomplete="off" />
+        <br />
+        <button onclick="checkCode()">تحقق من الرمز</button>
+
+        <div id="resultArea"></div>
+    </div>
+
+    <script>
+        function checkCode() {
+            const code = document.getElementById("codeInput").value.trim();
+            const resultArea = document.getElementById("resultArea");
+
+            // مسح النتائج السابقة
+            resultArea.innerHTML = "";
+
+            if (code === "8") {
+                resultArea.innerHTML = `<p class="hint-text" style="color: green;">لقد وجدتها!</p>
+                <p class="hint-text">تلميح لمكان الورقة التالية:<br> نكتب عليه ولا يقرأ<br>
+له أرجل ولا يمشي<br>
+يبقى واقفا حتى ان تعبنا<br>
+</p>`;
+            } else if (code === "b"||code === "B") {
+                resultArea.innerHTML = `<p class="hint-text">🔎 التلميح: "خيط حرير على _ _ خليل"</p>`;
+            } else if (code === "562") {
+                resultArea.innerHTML = `<p class="hint-text">رائع! هذه الصورة تقربك من الحل:</p>
+                                        <img src="ch.jpg">`;
+            } else if (code === "نسا") {
+                resultArea.innerHTML = `<p class="hint-text">أحسنت!</p>
+                                        <img src="mo.png" alt="صورة الرمز نسا">`;
+            } else {
+                resultArea.innerHTML = `<p class="error">❌ رمز خاطئ.. أعد المحاولة!</p>`;
+            }
+
+            // مسح الخانة بعد الإدخال
+            document.getElementById("codeInput").value = "";
+        }
+
+        // السماح بالضغط على Enter للإرسال
+        document
+            .getElementById("codeInput")
+            .addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    checkCode();
+                }
+            });
+    </script>
+</body>
+
+</html>
